@@ -1,0 +1,5 @@
+﻿@model AppRat.ViewModels.ARL_RemarkViewModel
+
+<select class="form-select" style="max-width: 200px; overflow-y: auto;" asp-for="Remarks_Id" asp-items="@(new SelectList(Model.aRL_Remarks, "Id", "Description"))">
+    <option value="">Select a remark...</option>
+</select>

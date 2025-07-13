@@ -1,0 +1,17 @@
+﻿@model AppRat.ViewModels.ARL_ConditionViewModel
+
+<select class="form-select" style="max-width: 200px; overflow-y: auto;" asp-for="Condition_Id" asp-items="@(new SelectList(Model.aRL_Conditions, "Id", "Description"))">
+    <option value="">Select a condition...</option>
+</select>
+@*<select class="form-control" asp-for="Condition_Id" asp-items="@(new SelectList(Model.aRL_Conditions, "Id", "Description"))">
+    <option value="">Select a condition...</option>
+</select>*@
+@* <style>
+    .form-select option {
+        color: #ffffff; /* Text color */
+        background-color: #404040; /* Background color */  
+    }
+        .form-select option:hover {
+            background-color: rgba(64, 64, 64, 0.7); /* Semi-transparent background color on hover */
+        }
+</style> *@

@@ -1,0 +1,22 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Register confirmation";
+}
+
+<div class="register">
+    <div class="register-content">
+        <h3>@ViewData["Title"]</h3>
+        @{
+            if (@Model.DisplayConfirmAccountLink)
+            {
+                <p>
+                    Please check your email to confirm your account.
+                </p>
+            }
+        }
+        <button onclick="location.href='@Url.Page("/Account/Login", new { area = "Identity" })'" class="w-100 btn btn-lg btn-outline-theme">
+            Back to Login
+        </button>
+    </div>
+</div>

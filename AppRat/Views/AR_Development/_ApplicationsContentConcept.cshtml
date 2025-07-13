@@ -1,0 +1,152 @@
+﻿@model AppRat.ViewModels.AR_ApplicationConceptViewModel
+
+<p>test</p>
+
+<div class="data-management" data-id="table">
+    <table class="table table-bordered table-xs w-100 fw-semibold text-nowrap mb-3" id="datatable">
+        <thead>
+            <tr>
+                <th class="no-sort"></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().DealerId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().UserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().SalesPeople)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Client)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Results_Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Condition_Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Validated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Invoiced)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Signed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Insurance_Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().TradeIn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Paid)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Spotter)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().ClientOutOfTown)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Remarks_Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AR_Applications.FirstOrDefault().Comments)
+                </th>
+            </tr>
+        </thead>
+        <tbody class="text-body">
+            @foreach (var item in Model.AR_ApplicationsWithLookups)
+            {
+                <tr>
+                    <td><a href="#" data-bs-toggle="modal" data-bs-target="#modalDetail"><i class="fa fa-search fa-fw"></i></a></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DealerDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SalesPeople)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Client)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResultDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ConditionDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Validated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Invoiced)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Signed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InsuranceDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TradeIn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Paid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Spotter)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClientOutOfTown)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RemarkDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comments)
+                    </td>
+                </tr>
+            }
+        </tbody>
+        @*<tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>309 sold</th>
+                <th>241 sold</th>
+                <th>271 sold</th>
+                <th>304 sold</th>
+                <th>241 sold</th>
+                <th>457 sold</th>
+                <th>$923,462</th>
+                <th>$751,792</th>
+                <th class="text-success">$171670</th>
+                <th>309 sold</th>
+                <th>241 sold</th>
+                <th>271 sold</th>
+            </tr>
+        </tfoot>*@
+    </table>
+</div>

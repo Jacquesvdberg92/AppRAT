@@ -1,0 +1,167 @@
+﻿@model AppRat.Models.AR_Application
+@{
+    Layout = null;
+}
+<h1>New Application</h1>
+<hr />
+<div class="card-body ">
+    <form asp-action="Create" asp-controller="AR_Application" id="AppCreateForm">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-xl-12">
+            <div class="row">
+                <div class="col-6">
+                    <style>
+                        /* Hide the label, input, and validation span elements for Franchise */
+                        label[for="Franchise"],
+                        input[asp-for="Franchise"],
+                        span[asp-validation-for="Franchise"] {
+                            display: none;
+                        }
+
+                        /* Hide the label, input, and validation span elements for UserId */
+                        label[for="UserId"],
+                        input[asp-for="UserId"],
+                        span[asp-validation-for="UserId"] {
+                            display: none;
+                        }
+                    </style>
+
+                    <div class="p-1">
+                        <label asp-for="DealerId" class="control-label">Dealer ID</label>
+                        @await Component.InvokeAsync("DealershipDropdown")
+                        <input type="hidden" asp-for="DealerId" />
+                    </div>
+                    <div class="p-1">
+                        <label asp-for="SalesPeople" class="control-label">Sales Person</label>
+                        @await Component.InvokeAsync("SalesPersonDropdown")
+                        <input type="hidden" asp-for="SalesPeople" />
+                    </div>
+                    @*<div class="form-group p-1">
+                        <label asp-for="SalesPeople" class="control-label">Sales People</label>
+                        <input asp-for="SalesPeople" class="form-control" />
+                        <span asp-validation-for="SalesPeople" class="text-danger"></span>
+                    </div>*@
+                    <div class="form-group p-1">
+                        <label asp-for="Client" class="control-label">Client</label>
+                        <input asp-for="Client" class="form-control" />
+                        <span asp-validation-for="Client" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Date" class="control-label">Date</label>
+                        <input asp-for="Date" class="form-control" id="Date" type="date" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            // Get the current date
+                            const now = new Date();
+
+                            // Format the date as "yyyy-mm-dd" (which is the required format for input type="date")
+                            const formattedDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+                            // Set the default value in the input field
+                            document.getElementById('Date').value = formattedDate;
+                        });
+                    </script>
+
+                    <div class="p-1">
+                        <label asp-for="Results_Id" class="control-label">Result ID</label>
+                        @await Component.InvokeAsync("ResultDropdown")
+                        <input type="hidden" asp-for="Results_Id" />
+                    </div>
+                    <div class="p-1">
+                        <label asp-for="Condition_Id" class="control-label">Condition ID</label>
+                        @await Component.InvokeAsync("ConditionDropdown")
+                        <input type="hidden" asp-for="Condition_Id" />
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group p-1">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Validated" /> @Html.DisplayNameFor(model => model.Validated)
+                        </label>
+                    </div>
+                    <div class="form-group p-1">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Invoiced" /> @Html.DisplayNameFor(model => model.Invoiced)
+                        </label>
+                    </div>
+                    <div class="form-group p-1">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Signed" /> @Html.DisplayNameFor(model => model.Signed)
+                        </label>
+                    </div>
+                    <div class="p-1">
+                        <label asp-for="Insurance_Id" class="control-label">Insurance ID</label>
+                        @await Component.InvokeAsync("InsuranceDropdown")
+                        <input type="hidden" asp-for="Insurance_Id" />
+                    </div>
+                    <div class="form-group p-1">
+                        <label class="form-check-label">
+                            <input class="form-check-input mr-2" asp-for="TradeIn" /> @Html.DisplayNameFor(model => model.TradeIn)
+                        </label>
+                    </div>
+
+                    <div class="form-group p-1">
+                        <label class="form-check-label">
+                            <input class="form-check-input mr-2" asp-for="Paid" /> @Html.DisplayNameFor(model => model.Paid)
+                        </label>
+                    </div>
+
+                    <div class="form-group p-1">
+                        <label class="form-check-label">
+                            <input class="form-check-input mr-2" asp-for="Spotter" /> @Html.DisplayNameFor(model => model.Spotter)
+                        </label>
+                    </div>
+
+                    <div class="form-group p-1">
+                        <label class="form-check-label">
+                            <input class="form-check-input mr-2" asp-for="ClientOutOfTown" /> @Html.DisplayNameFor(model => model.ClientOutOfTown)
+                        </label>
+                    </div>
+
+
+                    <div class="p-1">
+                        <label asp-for="Remarks_Id" class="control-label">Remarks ID</label>
+                        @await Component.InvokeAsync("RemarkDropdown")
+                        <input type="hidden" asp-for="Remarks_Id" />
+                    </div>
+                    <div class="form-group p-1">
+                        <label asp-for="Comments" class="control-label">Comments</label>
+                        <input asp-for="Comments" class="form-control" />
+                        <span asp-validation-for="Comments" class="text-danger"></span>
+                    </div>
+                    <div class="form-group p-1">
+                        <label asp-for="Franchise" class="control-label">Franchise</label>
+                        <input asp-for="Franchise" class="form-control" hidden="1" />
+                        <span asp-validation-for="Franchise" class="text-danger" hidden="1"></span>
+                    </div>
+                    <div class="form-group p-1">
+                        <label asp-for="UserId" class="control-label">User ID</label>
+                        <input asp-for="UserId" class="form-control" hidden="1" />
+                        <span asp-validation-for="UserId" class="text-danger" hidden="1"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group p-1">
+                <input type="submit" value="Create" class="btn btn-outline-theme p-1" />
+            </div>
+        </div>
+    </form>
+</div>
+
+@* <script> /* Needs to enter value */
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get the current date
+        const now = new Date();
+
+        // Format the date as "dd/mm/yyyy"
+        const formattedDate = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+
+        // Set the default value in the input field
+        document.getElementById('Date').value = formattedDate;
+    });
+</script> *@

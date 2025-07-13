@@ -1,0 +1,14 @@
+﻿@model AppRat.ViewModels.ARL_SalesPeopleViewModel
+
+<select class="form-select" style="max-width: 200px; overflow-y: auto;" asp-for="SalesPeople" asp-items="@(new SelectList(Model.aRL_SalesPeople, "Id", "Description", Model.SalesPeople))">
+    <option value="">Select a sales person...</option>
+</select>
+
+
+@* @model AppRat.ViewModels.ARL_SalesPeopleViewModel
+
+<select class="form-select" style="max-width: 200px; overflow-y: auto;" asp-for="SalesPeople" asp-items="@(new SelectList(Model.aRL_SalesPeople, "Id", "Description"))">
+    <option value="">Select a result...</option>
+</select>
+
+ *@

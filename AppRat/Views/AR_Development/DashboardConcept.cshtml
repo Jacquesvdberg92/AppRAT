@@ -1,0 +1,399 @@
+﻿@model AppRat.ViewModels.AR_DashboardContentViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@section Scripts {
+    <script src="~/js/dashboardConsepts.js"></script>
+    <script src="~/lib/@@highlightjs/cdn-assets/highlight.min.js"></script>
+    <script src="~/lib/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="~/js/demo/highlightjs.demo.js"></script>
+    <script src="~/js/demo/sidebar-scrollspy.demo.js"></script>
+}
+
+@{
+    //Daily applications
+    var categories = ViewBag.categories;
+    var dailyUsed = ViewBag.dailyUsed;
+    var dailyNew = ViewBag.dailyNew;
+    var dailyDemo = ViewBag.dailyDemo;
+    var dailyNtu = ViewBag.dailyNtu;
+
+    //Daily Approved & Declined
+    var dailyApproved = ViewBag.dailyApproved;
+    var dailyDeclined = ViewBag.dailyDeclined;
+    var dailySelfFinanced = ViewBag.dailySelfFinanced; //not in use yet
+    var dailyCash = ViewBag.dailyCash; //not in use yet
+
+    //New Car Apps
+    var totalNewCarApps = ViewBag.totalNewCarApps;
+    var totalNewCarValidatedApps = ViewBag.totalNewCarValidatedApps;
+    var totalNewCarSold = ViewBag.totalNewCarSold;
+    var totalNewCarNtu = ViewBag.totalNewCarNtu;
+    var totalNewCarAppsPerDeal = ViewBag.totalNewCarAppsPerDeal;
+
+    //Used Car Apps
+    var totalUsedCarApps = ViewBag.totalUsedCarApps;
+    var totalDemoCarApps = ViewBag.totalDemoCarApps;
+    var totalUsedCarValidatedApps = ViewBag.totalUsedCarValidatedApps;
+    var totalUsedCarSold = ViewBag.totalUsedCarSold;
+    var totalUsedCarNtu = ViewBag.totalUsedCarNtu;
+    var totalUsedCarAppsPerDeal = ViewBag.totalUsedCarAppsPerDeal;
+}
+
+<script>
+    var categories = @Html.Raw(Json.Serialize(categories));
+    var dailyUsedData = @Html.Raw(Json.Serialize(dailyUsed));
+    var dailyNewData = @Html.Raw(Json.Serialize(dailyNew));
+    var dailyDemoData = @Html.Raw(Json.Serialize(dailyDemo));
+    var dailyNtuData = @Html.Raw(Json.Serialize(dailyNtu));
+
+    var dailyApprovedData = @Html.Raw(Json.Serialize(dailyApproved));
+    var dailyDeclinedData = @Html.Raw(Json.Serialize(dailyDeclined));
+    var dailySelfFinancedData = @Html.Raw(Json.Serialize(dailySelfFinanced)); //not in use yet
+    var dailyCashData = @Html.Raw(Json.Serialize(dailyCash)); //not in use yet
+
+    //New Car
+    var totalNewCarAppsData = @Html.Raw(Json.Serialize(totalNewCarApps));
+    var totalNewCarValidatedData = @Html.Raw(Json.Serialize(totalNewCarValidatedApps));
+    var totalNewCarSoldData = @Html.Raw(Json.Serialize(totalNewCarSold));
+    var totalNewCarNtuData = @Html.Raw(Json.Serialize(totalNewCarNtu));
+    var totalNewCarAppsPerDealData = @Html.Raw(Json.Serialize(totalNewCarAppsPerDeal));
+
+    //Used Car
+    var totalUsedCarAppsData = @Html.Raw(Json.Serialize(totalUsedCarApps));
+    var totalDemoCarAppsData = @Html.Raw(Json.Serialize(totalDemoCarApps));
+    var totalUsedCarValidatedData = @Html.Raw(Json.Serialize(totalUsedCarValidatedApps));
+    var totalUsedCarSoldData = @Html.Raw(Json.Serialize(totalUsedCarSold));
+    var totalUsedCarNtuData = @Html.Raw(Json.Serialize(totalUsedCarNtu));
+    var totalUsedCarAppsPerDealData = @Html.Raw(Json.Serialize(totalUsedCarAppsPerDeal));
+
+    // Log the variables to the console
+    console.log("Categories:", categories);
+    console.log("Total Used Data:", dailyUsedData);
+    console.log("Total New Data:", dailyNewData);
+    console.log("Total Demo Data:", dailyDemoData);
+    console.log("Total Ntu Data:", dailyNtuData);
+
+    console.log("Categories:", categories);
+    console.log("Total Approved Data:", dailyApproved);
+    console.log("Total Declined Data:", dailyDecline);
+    console.log("Total Self Finance Data:", dailySelfFinance);
+    console.log("Total Cash Data:", dailyCash);
+
+    console.log("Total New Car Apps Data:", totalNewCarApps);
+    console.log("Total New Car Validated Data:", totalNewCarValidatedApps);
+    console.log("Total New Car Sold Data:", totalNewCarSold);
+    console.log("Total New Car Apps Per Deal Data:", totalNewCarAppsPerDeal);
+</script>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+
+<!-- BEGIN row -->
+<div class="row">
+    <div class="col-xl-12">
+        <div class="data-panel-small">
+            <h3 class="mb-3 text-center">Working Days: @Model.WorkingDaysPassed of @Model.WorkingDaysTotal</h3>
+            <hr />
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: @Model.WorkingDaysPercetage%">@Model.WorkingDaysPercetage%</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3">
+        <div class="data-panel">
+            <h3 class="mb-3 text-center">Target & Projection</h3>
+            <hr />
+            <div class="overflow-container">
+                <table class="table table-borderless table-hover">
+                    <thead>
+                        <tr>
+                            <th> </th>
+                            <th>New</th>
+                            <th>Used</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Target:</td>
+                            <td>@Model.AR_Targets.FirstOrDefault().New</td>
+                            <td>@Model.AR_Targets.FirstOrDefault().Used</td>
+                            <td>@Model.TargetTotal</td>
+                        </tr>
+                        <tr>
+                            <td>Prrojected:</td>
+                            <td>@Model.ProjectedNew</td>
+                            <td>@Model.ProjectedUsed</td>
+                            <td>@Model.ProjectedTotal</td>
+                        </tr>
+                        <tr>
+                            <td>Daily Required:</td>
+                            <td>@Model.DailyAppsRequiredNew</td>
+                            <td>@Model.DailyAppsRequiredUsed</td>
+                            <td>@Model.DailyAppsRequiredTotal</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3">
+        <div class="data-panel">
+            <h3 class="mb-3 text-center">Applications</h3>
+            <hr />
+            <div class="row">
+                <div class="col-6">
+                    <div class="overflow-container">
+                        <table class="table table-borderless table-hover">
+                            <thead>
+                                <tr>
+                                    <th> </th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Total Apps:</td>
+                                    <td>@Model.TotalApps</td>
+                                </tr>
+                                <tr>
+                                    <td>Apps per day:</td>
+                                    <td>@Model.AppsPerDay</td>
+                                </tr>
+                                <tr>
+                                    <td>Apps per Deal:</td>
+                                    <td>@Model.AppsPerDeal</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="overflow-container">
+                        <table class="table table-borderless table-hover">
+                            <thead>
+                                <tr>
+                                    <th> </th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Units Sold:</td>
+                                    <td>@Model.UnitsSold</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Projected:</td>
+                                    <td>@Model.TotalProjected</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-xl-3">
+        <div class="data-panel">
+            <h3 class="mb-3 text-center">New Car</h3>
+            <hr />
+
+            <div id="apexRadialBarChartNewApps"></div>
+
+        </div>
+    </div>
+
+    <div class="col-xl-3">
+        <div class="data-panel">
+            <h3 class="mb-3 text-center">Used Car</h3>
+            <hr />
+
+            <div id="apexRadialBarChartUsedApps"></div>
+
+        </div>
+    </div>
+</div>
+<!-- END ROW 1 -->
+<!-- BEGIN row 2 -->
+<div class="row">
+    <div class="col-xl-6">
+        <div class="data-panel-300">
+            <h3 class="mb-3 text-center">Applications Statistics</h3>
+            <hr />
+            <div class="row">
+                <div class="col-6">
+                    <div class="overflow-container">
+                        <table class="table table-borderless table-hover">
+                            <thead>
+                                <tr>
+                                    <th> </th>
+                                    <th>Count</th>
+                                    <th>App Ratio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Approved:</td>
+                                    <td>@Model.ApprovedTotal</td>
+                                    <td>@Model.ApprovedRatio%</td>
+                                </tr>
+                                <tr>
+                                    <td>Declined:</td>
+                                    <td>@Model.DeclinedTotal</td>
+                                    <td>@Model.DeclinedRatio%</td>
+                                </tr>
+                                <tr>
+                                    <td>Self Financed:</td>
+                                    <td>@Model.SelfFinanceTotal</td>
+                                    <td>@Model.SelfFinanceRatio%</td>
+                                </tr>
+                                <tr>
+                                    <td>Cash:</td>
+                                    <td>@Model.CashTotal</td>
+                                    <td>@Model.CashRatio%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="overflow-container">
+                        <table class="table table-borderless table-hover">
+                            <thead>
+                                <tr>
+                                    <th> </th>
+                                    <th>Count</th>
+                                    <th>App Ratio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Validated:</td>
+                                    <td>@Model.ValidatedApps</td>
+                                    <td>@Model.ValidatedAppsRatio%</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Apps:</td>
+                                    <td>@Model.TotalApps2</td> <!-- might needs to change -->
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Taken Up:</td>
+                                    <td>@Model.AppsTakenUp</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="data-panel-300">
+            <h3 class="mb-3 text-center">NTU's</h3>
+            <hr />
+            <div class="row">
+                <div class="col-6">
+                    <div class="overflow-container">
+                        <table class="table table-borderless table-hover">
+                            <thead>
+                                <tr>
+                                    <th> </th>
+                                    <th>Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Total Sold:</td>
+                                    <td>@Model.TotalApps2</td> <!-- Might need to change -->
+                                </tr>
+                                <tr>
+                                    <td>Total NTU:</td>
+                                    <td>@Model.TotalNTU</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Spotter Deal:</td>
+                                    <td>@Model.TotalSpotterDeals</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="overflow-container">
+                        <table class="table table-borderless table-hover">
+                            <thead>
+                                <tr>
+                                    <th> </th>
+                                    <th>Count</th>
+                                    <th>Ratio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Validated Spotter Deals:</td>
+                                    <td>@Model.ValidatedSpotterDeals</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>Spotter Deal NTU:</td>
+                                    <td>@Model.SpotterDealsNTU</td>
+                                    <td>@Model.SpotterDealsNTURatio%</td>
+                                </tr>
+                                <tr>
+                                    <td>NTU Ratio:</td>
+                                    <td>@Model.NTURatio</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END ROW 2 -->
+<!-- BEGIN row 2 -->
+<div class="row">
+    <div class="col-xl-6">
+        <div class="data-panel-300">
+            <h3 class="mb-3 text-center">Daily Applications Statistics</h3>
+            <hr />
+            <div class="row">
+                <div class="col-12">
+                    <div class="">
+                        <div id="apexColumnChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="data-panel-300">
+            <h3 class="mb-3 text-center">Approvals / Declines</h3>
+            <hr />
+            <div class="row">
+                <div class="col-12">
+                    <div class="">
+                        <div id="apexAreaChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END ROW 2 -->
+
+

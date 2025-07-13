@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33502.453
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppRat", "AppRat.csproj", "{F5536089-943E-4EB7-A71A-453203997755}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5536089-943E-4EB7-A71A-453203997755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5536089-943E-4EB7-A71A-453203997755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5536089-943E-4EB7-A71A-453203997755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5536089-943E-4EB7-A71A-453203997755}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58FB13D0-08F1-4934-80E0-CEAEE9C8253A}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://clt-a8f451a0-41ae-45fb-98ff-061908c61563.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AppRat.csproj
+		SccLocalPath1 = .
+	EndGlobalSection
+EndGlobal

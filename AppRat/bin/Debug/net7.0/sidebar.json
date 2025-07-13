@@ -1,0 +1,130 @@
+﻿{
+  "sidebarMenu": [
+    {
+      "text": "Navigation",
+      "is_header": true
+    },
+    {
+      "controller": "Home",
+      "action": "Dashboard",
+      "icon": "bi bi-easel",
+      "text": "Dashboard"
+    },
+    {
+      "controller": "AR_Application",
+      "action": "Index",
+      "icon": "bi bi-file-earmark-bar-graph",
+      "text": "Applications"
+    }
+  ],
+  "adminsidebarMenu": [
+    {
+      "text": "Admin",
+      "is_header": true
+    },
+    {
+      "controller": "AR_Target",
+      "action": "Index",
+      "icon": "bi bi-bullseye",
+      "text": "Targets"
+    },
+    {
+      "text": "Admin - Lookups",
+      "is_header": true
+    },
+    {
+      "controller": "ARL_Condition",
+      "action": "Index",
+      "icon": "bi bi-layers-half",
+      "text": "Conditions"
+    },
+    {
+      "controller": "ARL_Result",
+      "action": "Index",
+      "icon": "bi bi-award",
+      "text": "Results"
+    },
+    {
+      "controller": "ARL_Insurance",
+      "action": "Index",
+      "icon": "bi bi-binoculars",
+      "text": "Insurances"
+    },
+    {
+      "controller": "ARL_Remark",
+      "action": "Index",
+      "icon": "bi bi-journal-richtext",
+      "text": "Remarks"
+    },
+    {
+      "controller": "ARL_Dealership",
+      "action": "Index",
+      "icon": "bi bi-building",
+      "text": "Dealerships"
+    },
+    {
+      "controller": "ARL_SalesPeople",
+      "action": "Index",
+      "icon": "bi bi-people",
+      "text": "Sales People"
+    },
+    {
+      "text": "Admin - Auth",
+      "is_header": true
+    },
+    {
+      "controller": "ARL_Auth",
+      "action": "Index",
+      "icon": "bi bi-diagram-2",
+      "text": "Auth Levels"
+    },
+    {
+      "controller": "ARR_Auth",
+      "action": "Index",
+      "icon": "bi bi-diagram-3",
+      "text": "Auth Links"
+    },
+    {
+      "controller": "ARR_DealerLink",
+      "action": "Index",
+      "icon": "bi bi-link-45deg",
+      "text": "Dealer Link"
+    }
+  ],
+  "devsidebarMenu": [
+    {
+      "text": "Development",
+      "is_header": true
+    },
+    {
+      "controller": "AR_Development",
+      "action": "Index",
+      "icon": "bi bi-code",
+      "text": "Intro"
+    },
+    {
+      "controller": "AR_Feedback",
+      "action": "Index",
+      "icon": "bi bi-bug",
+      "text": "Bug Report"
+    },
+    {
+      "controller": "AR_Development",
+      "action": "DashboardConcept",
+      "icon": "bi bi-wrench",
+      "text": "Dashboard Concept"
+    },
+    {
+      "controller": "AR_Development",
+      "action": "ApplicationsConcept",
+      "icon": "bi bi-app-indicator",
+      "text": "Applications Concept"
+    },
+    {
+      "controller": "AR_Development",
+      "action": "AngularJSTesting",
+      "icon": "bi bi-code-square",
+      "text": "AngularJS Testing"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+﻿@model AppRat.ViewModels.ARL_UserViewModel
+
+<select class="form-select" style="max-width: 200px; overflow-y: auto;" asp-for="User" asp-items="@(new SelectList(Model.aRL_User, "Id", "Description"))">
+    <option value="">Select a User...</option>
+</select>
+

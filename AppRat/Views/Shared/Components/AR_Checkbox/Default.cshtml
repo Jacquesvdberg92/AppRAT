@@ -1,0 +1,11 @@
+﻿@model List<AR_CheckboxItem>
+
+<div class="checkbox-list">
+    @foreach (var item in Model)
+    {
+        <div class="checkbox-item">
+            <input type="checkbox" id="@item.Id" name="@item.Id" @(item.IsChecked ? "checked" : "") />
+            <label asp-for="@item.Id">@item.Label</label>
+        </div>
+    }
+</div>

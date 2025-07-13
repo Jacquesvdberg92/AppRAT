@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<AppRat.Models.ARR_DealerLink>
+
+@{
+    ViewData["Title"] = "Index";
+    var users = ViewBag.Users as List<IdentityUser>;
+    var dealers = ViewBag.Dealers as List<ARL_Dealership>;
+    var dealerLinks = ViewBag.DealerLinks as List<ARR_DealerLink>;
+}
+
+<div class="row">
+    <div class="data-panel">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                <h1>Dealer Link</h1>
+                <div>
+                    <a asp-action="Create" class="btn btn-outline-theme p-1">Create New</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="overflow-container">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User Name</th>
+                                <th>Dealer Description</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var link in dealerLinks)
+                            {
+                                var user = users.FirstOrDefault(u => u.Id == link.UserId);
+                                var dealer = dealers.FirstOrDefault(d => d.Id == link.DealerId);
+                                <tr>
+                                    <td>@link.Id</td>
+                                    <td>@user?.UserName</td>
+                                    <td>@dealer?.Description</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@link.Id" class="btn btn-outline-theme p-1">Edit</a>
+                                        <a asp-action="Details" asp-route-id="@link.Id" class="btn btn-outline-theme p-1">Details</a>
+                                        <a asp-action="Delete" asp-route-id="@link.Id" class="btn btn-outline-theme p-1">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

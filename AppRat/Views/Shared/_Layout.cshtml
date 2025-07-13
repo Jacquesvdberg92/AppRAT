@@ -1,0 +1,115 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    string appMode = "dark";
+    if (Context.Request.Cookies.TryGetValue("app-theme-mode", out string appModeValue))
+    {
+        appMode = appModeValue;
+    }
+
+    string appCover = "";
+    if (Context.Request.Cookies.TryGetValue("app-theme-cover", out string appCoverValue))
+    {
+        appCover = appCoverValue;
+    }
+}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="@appMode" @ViewData["HtmlAttribute"] class="@appCover">
+<head>
+    <meta charset="utf-8">
+    <title>AppRat | @ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="@ViewData["MetaDescription"]">
+    <meta name="author" content="@ViewData["MetaAuthor"]">
+    <meta name="keywords" content="@ViewData["MetaKeywords"]">
+
+    @RenderSection("MetaTag", required: false)
+
+    <!-- ================== BEGIN core-css ================== -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @*    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">*@
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/vendor.min.css" rel="stylesheet">
+    <link href="~/css/app.min.css" rel="stylesheet">
+    <link href="~/css/site.css" rel="stylesheet" asp-append-version="true">
+    <!-- ================== END core-css ================== -->
+    <link rel="stylesheet" href="~/lib/jquery-ui-dist/jquery-ui.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-ui-dist/jquery-ui.min.js"></script>
+
+
+    @*    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    *@
+    @*<!-- Testing-->
+    <link href="~/lib/select-picker/dist/picker.min.css" rel="stylesheet">
+    <script src="~/lib/select-picker/dist/picker.min.js"></script>
+    <link href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- End Testing-->*@
+
+    @RenderSection("Styles", required: false)
+</head>
+<body class="@ViewData["BodyClass"]">
+    <!-- BEGIN #app -->
+    <div id="app" class="app @ViewData["AppClass"]">
+        @*@if (!User.Identity.IsAuthenticated)
+        {*@
+        @if (ViewData["AppHeaderNone"] == null)
+        {
+            <partial name="_Header" />
+        }
+
+        @if (ViewData["AppSidebarNone"] == null)
+        {
+            <partial name="_Sidebar" />
+        }
+
+        @if (ViewData["AppTopNav"] != null)
+        {
+            <partial name="_TopNav" />
+        }
+        @*}*@
+
+        @if (ViewData["AppContentNone"] == null)
+        {
+            <div id="content" class="app-content @ViewData["AppContentClass"]">
+                @RenderBody()
+
+                <!-- BEGIN btn-scroll-top -->
+                <a href="#" data-toggle="scroll-to-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
+                <!-- END btn-scroll-top -->
+            </div>
+        }
+        else
+        {
+            @RenderBody()
+
+            <!-- BEGIN btn-scroll-top -->
+            <a href="#" data-toggle="scroll-to-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
+            <!-- END btn-scroll-top -->
+        }
+
+        @RenderSection("OutterAppContainerContent", required: false)
+
+        @if (ViewData["AppFooter"] != null)
+        {
+            <partial name="_Footer" />
+        }
+
+        @*<partial name="_ThemePanel" />*@
+    </div>
+    <!-- END #app -->
+    <!-- ================== BEGIN core-js ================== -->
+    <script>
+        window.paceOptions = {
+            ajax: { ignoreURLs: ['mainHub', '__browserLink', 'browserLinkSignalR'], trackWebSockets: false }
+        };
+    </script>
+    <script src="~/js/vendor.min.js"></script>
+    <script src="~/js/app.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- ================== END core-js ================== -->
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

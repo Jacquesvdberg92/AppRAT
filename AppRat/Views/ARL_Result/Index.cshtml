@@ -1,0 +1,49 @@
+﻿@model IEnumerable<AppRat.Models.ARL_Result>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="data-panel">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                <h1>Insurance Index</h1>
+                <div>
+                    <a asp-action="Create" class="btn btn-outline-theme p-1">Create New</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="overflow-container">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td class="">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-theme p-1">Edit</a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-theme p-1">Details</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-theme p-1">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

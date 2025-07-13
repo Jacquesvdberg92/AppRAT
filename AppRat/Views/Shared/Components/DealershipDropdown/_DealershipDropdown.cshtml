@@ -1,0 +1,5 @@
+﻿@model AppRat.ViewModels.ARL_DealershipViewModel
+
+<select class="form-select" style="max-width: 200px; overflow-y: auto;" asp-for="DealerId" asp-items="@(new SelectList(Model.aRL_Dealerships, "Id", "Description"))">
+    <option value="">Select a dealership...</option>
+</select>

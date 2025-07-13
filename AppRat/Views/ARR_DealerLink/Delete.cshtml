@@ -1,0 +1,64 @@
+﻿@model AppRat.Models.ARR_DealerLink
+
+@{
+    ViewData["Title"] = "Delete";
+    var userName = ViewBag.UserName as string;
+    var dealerName = ViewBag.DealerName as string;
+}
+
+<div class="row">
+    <div class="data-panel">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                <h1>Delete Target</h1>
+                <div>
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Delete" class="btn btn-outline-danger" />
+                        <a asp-action="Index" class="btn btn-outline-theme p-1">Back to List</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        User
+                    </dt>
+                    <dd class="col-sm-10">
+                        @userName
+                    </dd>
+                    <dt class="col-sm-2">
+                        Dealer
+                    </dt>
+                    <dd class="col-sm-10">
+                        @dealerName
+                    </dd>
+                    <dt class="col-sm-2">
+                        Dealer ID
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Model.DealerId
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ARR_DealerLink</h4>
+    <hr />
+    
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
+ *@

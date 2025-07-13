@@ -1,0 +1,229 @@
+﻿@{
+    ViewData["Title"] = "Applications";
+    ViewData["AppClass"] = "app-content-full-height";
+    ViewData["AppContentClass"] = "py-3";
+}
+
+@section Styles {
+    <link href="~/lib/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="~/lib/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet">
+    <link href="~/lib/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" rel="stylesheet">
+    <link href="~/lib/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <style>
+        .daterangepicker select.monthselect,
+        .daterangepicker select.yearselect {
+            color: #000; /* This sets the text color to black */
+            background-color: #fff; /* This sets the background color to white */
+        }
+
+            .daterangepicker select.monthselect option,
+            .daterangepicker select.yearselect option {
+                color: #000; /* This sets the text color of the options to black */
+                background-color: #fff; /* This sets the background color of the options to white */
+            }
+    </style>
+}
+
+@section Scripts {
+    @*<script src="~/js/applicationsConcept.js"></script> checkin edit*@
+    <script src="~/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/lib/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/lib/jszip/dist/jszip.min.js"></script>
+    <script src="~/lib/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/lib/pdfmake/build/vfs_fonts.js"></script>
+    <script src="~/lib/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <script src="~/lib/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="~/lib/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/lib/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/lib/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+    <script src="~/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/lib/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+    <script src="~/lib/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js"></script>
+    <script src="~/lib/datatables.net-fixedcolumns-bs5/js/fixedColumns.bootstrap5.min.js"></script>
+    <script src="~/lib/moment/min/moment.min.js"></script>
+    <script src="~/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+}
+
+<div class="mb-3">
+    <label class="form-label">Advance Date Ranges</label>
+    <div id="advance-daterange" class="btn btn-outline-theme d-flex align-items-center text-start">
+        <span class="text-truncate" id="currentMonthLabel">Select date range...</span>
+        <i class="fa fa-caret-down ms-auto"></i>
+    </div>
+</div>
+@*<div class="row">
+    <div class="container" id="partialViewContainer">
+    </div>
+</div>*@
+<div id="partialViewContainer" class="overflow-container">
+    <!-- The partial view will be loaded here -->
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Function to update the label text with the current month
+        function updateCurrentMonthLabel() {
+            var currentDate = moment(); // Get the current date
+            var currentMonth = currentDate.format('MMMM YYYY'); // Format the current date as "Month Year"
+            $('#currentMonthLabel').text(currentMonth);
+        }
+
+        // Call the function to set the initial label text
+        updateCurrentMonthLabel();
+
+        $.ajax({
+            url: '/AR_Application/GetApplicationsPartialView',
+            type: 'POST',
+            dataType: 'html',
+            success: function (data) {
+                $('#partialViewContainer').html(data);
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    });
+    $(document).ready(function () {
+        var defaultStartDate = moment().startOf('month');
+        var defaultEndDate = moment().endOf('month');
+
+        $('#advance-daterange').daterangepicker({
+            format: 'DD/MM/YYYY',
+            startDate: defaultStartDate,
+            endDate: defaultEndDate,
+            minDate: '01/01/2021',
+            maxDate: '12/31/2024',
+            dateLimit: { days: 60 },
+            showDropdowns: true,
+            showWeekNumbers: false,
+            timePicker: false,
+            timePickerIncrement: 1,
+            timePicker12Hour: true,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            opens: 'right',
+            drops: 'down',
+            buttonClasses: ['btn', 'btn-sm'],
+            applyClass: 'btn-primary',
+            cancelClass: 'btn-default',
+            separator: ' to ',
+            locale: {
+                applyLabel: 'Submit',
+                cancelLabel: 'Cancel',
+                fromLabel: 'From',
+                toLabel: 'To',
+                customRangeLabel: 'Custom',
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                firstDay: 1
+            }
+        },
+            function (start, end, label) {
+                // Update the displayed date range
+                $('#advance-daterange span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+
+                // Make an AJAX request to fetch the updated partial view content
+                $.ajax({
+                    url: '@Url.Action("GetApplicationsPartialView", "AR_Application")',
+                    type: 'GET',
+                    data: {
+                        startDate: start.format('YYYY-MM-DD'),
+                        endDate: end.format('YYYY-MM-DD')
+                    },
+                    success: function (result) {
+                        // Update the partial view container with the new content
+                        $('#partialViewContainer').html(result);
+
+                        // Initialize DataTables on the table inside the loaded partial view
+                        // ... (existing DataTables initialization code)
+
+                        var height = $(window).height() - $('#header').height() - 165;
+                        var options = {
+                            dom: "<'row'<'col-7 col-md-6 d-flex justify-content-start'f><'col-5 col-md-6 text-end'B>><'row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-5 fs-12px'i><'col-sm-12 col-md-7 fs-12px'p>>",
+                            scrollY: height,
+                            scrollX: true,
+                            paging: false,
+                            fixedColumns: {
+                                left: 3
+                            },
+                            order: [[1, 'asc']],
+                            columnDefs: [
+                                { targets: 'no-sort', orderable: false }
+                            ],
+                            buttons: [
+                                {
+                                    extend: 'excel',
+                                    text: '<i class="fa fa-download fa-fw me-1"></i> Export Excel',
+                                    className: 'btn btn-outline-default btn-sm text-nowrap rounded-2',
+                                    footer: true
+                                }]
+                        };
+
+                        if ($(window).width() < 767) {
+                            options.fixedColumns = { left: 2 };
+                        }
+                        $('#datatable').DataTable(options);
+
+                        $('[data-id="table"]').removeClass('d-none');
+                        handelTooltipPopoverActivation();
+                        $(window).trigger('resize');
+                    },
+                    error: function (error) {
+                        console.error(error);
+                    }
+                });
+            });
+        //$.ajax({
+        //    url: 'Url.Action("GetApplicationsPartialView", "AR_Development")',
+        //    type: 'GET',
+        //    success: function (result) {
+        //        console.log("Partial view loaded successfully.");
+        //        $('#partialViewContainer').html(result);
+
+        //        // Initialize DataTables on the table inside the loaded partial view
+        //        //$('#datatable').DataTable();
+        //        var height = $(window).height() - $('#header').height() - 165;
+        //        var options = {
+        //            dom: "<'row'<'col-7 col-md-6 d-flex justify-content-start'f><'col-5 col-md-6 text-end'B>><'row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-5 fs-12px'i><'col-sm-12 col-md-7 fs-12px'p>>",
+        //            scrollY: height,
+        //            scrollX: true,
+        //            paging: false,
+        //            fixedColumns: {
+        //                left: 3
+        //            },
+        //            order: [[1, 'asc']],
+        //            columnDefs: [
+        //                { targets: 'no-sort', orderable: false }
+        //            ],
+        //            buttons: [
+        //                {
+        //                    extend: 'excel',
+        //                    text: '<i class="fa fa-download fa-fw me-1"></i> Export Excel',
+        //                    className: 'btn btn-outline-default btn-sm text-nowrap rounded-2',
+        //                    footer: true
+        //                }]
+        //        };
+
+        //        if ($(window).width() < 767) {
+        //            options.fixedColumns = { left: 2 };
+        //        }
+        //        $('#datatable').DataTable(options);
+
+        //        $('[data-id="table"]').removeClass('d-none');
+        //        handelTooltipPopoverActivation();
+        //        $(window).trigger('resize');
+        //    },
+        //    error: function (error) {
+        //        console.error(error);
+        //    }
+        //});
+    });
+</script>
