@@ -30,7 +30,14 @@ public partial class AppRatDbContext : DbContext
     public DbSet<AR_Feedback> AR_Feedback { get; set; } = default!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=AppRat;Integrated Security=SSPI;MultipleActiveResultSets=true;Encrypt=false");
+    {
+        // Only fall back to the hard-coded SQL Server connection when the context
+        // hasn't already been configured by DI (e.g. demo mode uses InMemory).
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer("Server=localhost;Database=AppRat;Integrated Security=SSPI;MultipleActiveResultSets=true;Encrypt=false");
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

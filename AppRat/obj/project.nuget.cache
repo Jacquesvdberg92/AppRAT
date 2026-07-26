@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4EBExk4BCIo=",
+  "dgSpecHash": "5wMVif+ptGo=",
   "success": true,
-  "projectFilePath": "C:\\Users\\jacqu\\Source\\Workspaces\\AppRat\\AppRat\\AppRat.csproj",
+  "projectFilePath": "C:\\Users\\jacqu\\RiderProjects\\Compuren\\AppRAT\\AppRat\\AppRat.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jacqu\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\jacqu\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
@@ -89,6 +89,7 @@
     "C:\\Users\\jacqu\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.20\\microsoft.entityframeworkcore.abstractions.7.0.20.nupkg.sha512",
     "C:\\Users\\jacqu\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.20\\microsoft.entityframeworkcore.analyzers.7.0.20.nupkg.sha512",
     "C:\\Users\\jacqu\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.20\\microsoft.entityframeworkcore.design.7.0.20.nupkg.sha512",
+    "C:\\Users\\jacqu\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\7.0.10\\microsoft.entityframeworkcore.inmemory.7.0.10.nupkg.sha512",
     "C:\\Users\\jacqu\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.20\\microsoft.entityframeworkcore.relational.7.0.20.nupkg.sha512",
     "C:\\Users\\jacqu\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\7.0.10\\microsoft.entityframeworkcore.sqlite.7.0.10.nupkg.sha512",
     "C:\\Users\\jacqu\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\7.0.10\\microsoft.entityframeworkcore.sqlite.core.7.0.10.nupkg.sha512",
@@ -248,7 +249,11 @@
     "C:\\Users\\jacqu\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\jacqu\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\jacqu\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\jacqu\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512"
+    "C:\\Users\\jacqu\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512",
+    "C:\\Users\\jacqu\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.20\\microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\jacqu\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.20\\microsoft.netcore.app.host.win-x64.7.0.20.nupkg.sha512",
+    "C:\\Users\\jacqu\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.20\\microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\jacqu\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.20\\microsoft.windowsdesktop.app.ref.7.0.20.nupkg.sha512"
   ],
   "logs": []
 }

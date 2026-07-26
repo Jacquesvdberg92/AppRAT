@@ -15,14 +15,28 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // Load configuration from appsettings.json
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
+// Demo mode hosts a self-contained, auto-seeded preview (portfolio demo) that
+// requires no external SQL Server and signs every visitor in as an admin.
+bool demoMode = builder.Configuration.GetValue<bool>("DemoMode");
+
 // Add DbContexts
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDbContext<AppRatDbContext>(options =>
+if (demoMode)
 {
-    options.UseSqlServer(connectionString);
-    options.EnableSensitiveDataLogging();
-});
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseInMemoryDatabase("AppRatDemo_Identity"));
+    builder.Services.AddDbContext<AppRatDbContext>(options =>
+        options.UseInMemoryDatabase("AppRatDemo_Data"));
+}
+else
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(connectionString));
+    builder.Services.AddDbContext<AppRatDbContext>(options =>
+    {
+        options.UseSqlServer(connectionString);
+        options.EnableSensitiveDataLogging();
+    });
+}
 
 // builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -64,6 +78,12 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+// Seed the self-contained demo dataset (admin user, lookups, targets, applications).
+if (demoMode)
+{
+    await DemoDataSeeder.SeedAsync(app.Services);
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -81,6 +101,31 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthentication();
+
+// Demo mode: transparently sign every anonymous visitor in as the demo admin so
+// the preview is fully browsable without a login step.
+if (demoMode)
+{
+    app.Use(async (context, next) =>
+    {
+        if (!(context.User.Identity?.IsAuthenticated ?? false))
+        {
+            var userManager = context.RequestServices.GetRequiredService<UserManager<IdentityUser>>();
+            var signInManager = context.RequestServices.GetRequiredService<SignInManager<IdentityUser>>();
+
+            var demoUser = await userManager.FindByEmailAsync(DemoDataSeeder.DemoEmail);
+            if (demoUser != null)
+            {
+                // Authenticate the current request and persist a cookie for the next ones.
+                context.User = await signInManager.CreateUserPrincipalAsync(demoUser);
+                await signInManager.SignInAsync(demoUser, isPersistent: true);
+            }
+        }
+
+        await next();
+    });
+}
+
 app.UseAuthorization();
 //app.UseCors(); // Place the CORS middleware after UseAuthorization and before MapControllerRoute
 
